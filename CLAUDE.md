@@ -30,62 +30,7 @@ When answering questions, draw on the business context and knowledge base below.
    - Interest Income
    - Other Revenue
 
-2. **Cost of Sales** (chart of accounts — each trade split into materials + subcontractor)
-   - Architectural
-   - Civil Engineering
-   - Cladding materials / Cladding subcontractor
-   - Closing Work In Progress
-   - Comms Authority Fees
-   - Concrete materials / Concrete subcontractor
-   - Council Fees
-   - Decking materials
-   - Electrical materials / Electrical subcontractor
-   - ERV materials
-   - Exterior Joinery / Exterior joinery materials
-   - Exterior Painting subcontractor
-   - Exterior Plasterer subcontractor
-   - Floor covering materials / Floor covering supply and install
-   - Foundation Labour / Foundations / Foundations Materials / Foundations subcontractor
-   - Frame materials
-   - Gutter & Downpipe subcontractor / Gutter and Downpipe materials
-   - Heat pump materials
-   - Hire of Plant and Equipment
-   - House transport materials / House transport subcontractor
-   - Interior doors materials / Interior Doors subcontractor
-   - Interior linings materials
-   - Interior Plasterer materials / Interior Plasterer subcontractor
-   - Kitchen appliances / Kitchen install labour / Kitchen supply and install / Kitchen supply only
-   - Labour (GST Registered)
-   - Laundry appliances
-   - Materials (general)
-   - Opening Work In Progress
-   - Plumbing fixtures materials / Plumbing materials / Plumbing subcontractor
-   - Professional Fees
-   - Protective Clothing
-   - Purchases
-   - Purchases and Advertising - SIPS
-   - Purlin materials
-   - Roofing materials / Roofing subcontractor
-   - Scaffold hire
-   - SIP floor panels / SIP Panel Materials / SIP roof panels / SIP wall panels
-   - SIP warm roof panels / SIP warm roof panels labour
-   - Site H&S signage
-   - Site office hire / Smart Shelter
-   - Site safety fencing
-   - Site security
-   - Site toilet hire
-   - Site Works
-   - Soffit materials
-   - Stormwater subcontractor
-   - Structural
-   - Subcontractors (general)
-   - Tiling subcontractor
-   - Truss materials
-   - Urban Designer
-   - Wages - Direct
-   - Wardrobes materials
-   - Wastewater materials
-   - Window covering materials
+2. **Cost of Sales** — see Cost Code Structure below for full detail
 
 3. **Gross Profit**
 
@@ -130,6 +75,263 @@ When answering questions, draw on the business context and knowledge base below.
    - Waste / Disposal
 
 5. **Net Profit**
+
+## Cost Code Structure
+
+Each trade follows a consistent pattern: subcontractor (x0), materials (x1), labour (x2). The "Included in Fix" column indicates whether costs are part of the fixed-price contract.
+
+### 0000 — P&G (Preliminaries & General)
+| Code | Description |
+|------|-------------|
+| 0010 | Scaffold hire |
+| 0011 | Safety net hire |
+| 0012 | Site H&S signage |
+| 0013 | Site safety fencing |
+| 0014 | Site security |
+| 0015 | Site office hire |
+| 0016 | Site lunch room hire |
+| 0017 | Site toilet hire |
+| 0018 | Project manager |
+| 0019 | Site manager |
+| 0020 | Quantity surveyor |
+| 0021 | Health and Safety management |
+
+### 1000 — Professional Fees
+| Code | Description |
+|------|-------------|
+| 1010 | Planning |
+| 1020 | Architectural |
+| 1030 | Urban Designer |
+| 1040 | Structural |
+| 1050 | Geotechnical |
+| 1060 | Surveyor |
+| 1070 | Civil Engineering |
+| 1080 | Landscape Architect |
+
+### 1100 — Council Fees
+| Code | Description |
+|------|-------------|
+| 1110 | Building consent fees |
+| 1111 | Building inspection fees |
+| 1112 | Code compliance certificate |
+| 1120 | Infrastructure inspection fees |
+| 1121 | 224C certificate |
+| 1122 | Development contribution fees |
+
+### 1200 — Power Authority Fees
+(single line item)
+
+### 1300 — Comms Authority Fees
+(single line item)
+
+### 2000 — Site Works
+| Code | Description |
+|------|-------------|
+| 2010 | Stormwater subcontractor |
+| 2011 | Stormwater materials |
+| 2012 | Stormwater labour |
+| 2020 | Wastewater subcontractor |
+| 2021 | Wastewater materials |
+| 2022 | Wastewater labour |
+| 2030 | Underslab plumber subcontractor |
+| 2040 | Power subcontractor |
+| 2050 | Comms subcontractor |
+| 2060 | Earthworks subcontractor |
+| 2070 | Retaining wall subcontractor |
+| 2071 | Retaining wall materials |
+| 2072 | Retaining wall labour |
+| 2080 | Concrete subcontractor |
+| 2081 | Concrete materials |
+| 2082 | Concrete labour |
+
+### 2100 — Foundations
+| Code | Description |
+|------|-------------|
+| 2110 | Foundations subcontractor |
+| 2111 | Foundations Materials |
+| 2112 | Foundation Labour |
+
+### 2200 — SIP Panel Materials
+| Code | Description |
+|------|-------------|
+| 2210 | SIP floor panels |
+| 2220 | SIP wall panels |
+| 2230 | SIP warm roof panels |
+| 2240 | SIP roof panels |
+
+### 2300 — SIP Panel Labour
+| Code | Description |
+|------|-------------|
+| 2310 | SIP floor panels labour |
+| 2320 | SIP wall panels labour |
+| 2330 | SIP warm roof panels labour |
+| 2340 | SIP roof panels labour |
+
+### 2400 — Frame & Truss
+| Code | Description |
+|------|-------------|
+| 2410 | Frame & Truss supply |
+| 2411 | Frame materials |
+| 2412 | Frame labour |
+| 2413 | Truss materials |
+| 2414 | Truss labour |
+| 2415 | Purlin materials |
+| 2416 | Purlin labour |
+
+### 2500 — Roofing
+| Code | Description |
+|------|-------------|
+| 2510 | Roofing subcontractor |
+| 2511 | Roofing materials |
+| 2512 | Roofing labour |
+| 2520 | Fascia subcontractor |
+| 2521 | Fascia materials |
+| 2522 | Fascia labour |
+| 2530 | Soffit materials |
+| 2531 | Soffit labour |
+| 2540 | Gutter & Downpipe subcontractor |
+| 2541 | Gutter and Downpipe materials |
+| 2542 | Gutter and Downpipe labour |
+
+### 2600 — Cladding
+| Code | Description |
+|------|-------------|
+| 2610 | Cladding subcontractor |
+| 2611 | Cladding materials |
+| 2612 | Cladding labour |
+
+### 2700 — Exterior Joinery
+| Code | Description |
+|------|-------------|
+| 2710 | Exterior joinery subcontractor |
+| 2711 | Exterior joinery materials |
+| 2712 | Exterior joinery labour |
+
+### 2900 — Plumbing
+| Code | Description |
+|------|-------------|
+| 2910 | Plumbing subcontractor |
+| 2911 | Plumbing materials |
+| 2912 | Plumbing labour |
+| 2913 | Plumbing fixtures materials |
+| 2914 | Plumbing fixtures labour |
+
+### 3000 — Electrical
+| Code | Description |
+|------|-------------|
+| 3010 | Electrical subcontractor |
+| 3011 | Electrical materials |
+| 3012 | Electrical labour |
+
+### 3100 — Heat Pumps
+| Code | Description |
+|------|-------------|
+| 3110 | Heat pump subcontractor |
+| 3111 | Heat pump materials |
+| 3112 | Heat pump labour |
+
+### 3200 — Energy Recovery Ventilation
+| Code | Description |
+|------|-------------|
+| 3210 | ERV subcontractor |
+| 3211 | ERV materials |
+| 3212 | ERV labour |
+
+### 3300 — Kitchen & Laundry
+| Code | Description |
+|------|-------------|
+| 3310 | Kitchen supply and install |
+| 3311 | Kitchen supply only |
+| 3312 | Kitchen install labour |
+| 3313 | Kitchen appliances |
+| 3314 | Laundry supply and install |
+| 3315 | Laundry supply only |
+| 3316 | Laundry install only |
+| 3317 | Laundry appliances |
+
+### 3400 — Wardrobes
+| Code | Description |
+|------|-------------|
+| 3410 | Wardrobes subcontractor |
+| 3411 | Wardrobes materials |
+| 3412 | Wardrobes labour |
+
+### 3500 — Interior Linings
+| Code | Description |
+|------|-------------|
+| 3510 | Interior linings subcontractor |
+| 3511 | Interior linings materials |
+| 3512 | Interior linings labour |
+
+### 3600 — Plasterer
+| Code | Description |
+|------|-------------|
+| 3610 | Interior Plasterer subcontractor |
+| 3611 | Interior Plasterer materials |
+| 3612 | Interior Plasterer labour |
+| 3620 | Exterior Plasterer subcontractor |
+| 3621 | Exterior Plasterer materials |
+| 3622 | Exterior Plasterer labour |
+
+### 3700 — Interior Doors
+| Code | Description |
+|------|-------------|
+| 3710 | Interior Doors subcontractor |
+| 3711 | Interior doors materials |
+| 3712 | Interior doors labour |
+
+### 3800 — Finishing Lines
+| Code | Description |
+|------|-------------|
+| 3810 | Finishing lines subcontractor |
+| 3811 | Finishing lines materials |
+| 3812 | Finishing lines labour |
+
+### 3900 — Painting
+| Code | Description |
+|------|-------------|
+| 3910 | Exterior Painting subcontractor |
+| 3911 | Exterior Painting materials |
+| 3912 | Exterior Painting labour |
+| 3920 | Interior Painting subcontractor |
+| 3921 | Interior Painting materials |
+| 3922 | Interior Painting labour |
+
+### 4000 — Floor & Window Coverings
+| Code | Description |
+|------|-------------|
+| 4010 | Floor covering supply and install |
+| 4011 | Floor covering materials |
+| 4012 | Floor covering labour |
+| 4020 | Window covering supply and install |
+| 4021 | Window covering materials |
+| 4022 | Window covering labour |
+
+### 4100 — House Transport
+| Code | Description |
+|------|-------------|
+| 4110 | House transport subcontractor |
+| 4111 | House transport materials |
+| 4112 | House transport labour |
+
+### 4200 — Site Finishing Works
+| Code | Description |
+|------|-------------|
+| 4210 | Decking subcontractor |
+| 4211 | Decking materials |
+| 4212 | Decking labour |
+| 4220 | Hardscaping subcontractor |
+| 4221 | Hardscaping materials |
+| 4222 | Hardscaping labour |
+| 4230 | Fencing subcontractor |
+| 4231 | Fencing materials |
+| 4232 | Fencing labour |
+| 4240 | Landscaping subcontractor |
+| 4241 | Landscaping materials |
+| 4242 | Landscaping labour |
+| 4250 | Letterbox |
+| 4251 | Shed |
+| 4252 | Clothes line |
 
 ---
 
