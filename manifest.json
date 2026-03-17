@@ -1,6 +1,6 @@
 {
-  "name": "SalesRep — Sales Call Practice Tool",
-  "short_name": "SalesRep",
+  "name": "DEVPRO Sales Coach",
+  "short_name": "DEVPRO",
   "description": "AI-powered sales call scorecard with deliberate practice tools",
   "start_url": "/index.html",
   "display": "standalone",
