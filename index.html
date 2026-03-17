@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>SalesRep — Sales Call Practice Tool</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Top Bar -->
+    <header id="top-bar">
+      <div class="top-bar-content">
+        <h1 class="app-title">SalesRep</h1>
+        <button id="settings-btn" class="icon-btn" aria-label="Settings">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.32 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Views Container -->
+    <main id="views">
+
+      <!-- HOME VIEW -->
+      <section id="view-home" class="view active">
+        <!-- Focus Skill Card -->
+        <div id="focus-card" class="card focus-card">
+          <div class="card-label">Next Call Focus</div>
+          <div id="focus-skill-name" class="focus-skill-name">—</div>
+          <div id="focus-skill-detail" class="focus-skill-detail">Complete your first call to get a focus recommendation.</div>
+          <div id="focus-skill-score" class="focus-skill-score"></div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-calls">0</div>
+            <div class="stat-label">Calls</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-avg">—</div>
+            <div class="stat-label">Avg Score</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-trend">—</div>
+            <div class="stat-label">Trend</div>
+          </div>
+        </div>
+
+        <!-- Recent Calls -->
+        <div class="section-header">
+          <h2>Recent Calls</h2>
+        </div>
+        <div id="recent-calls" class="call-list">
+          <div class="empty-state">No calls yet. Tap + to score your first call.</div>
+        </div>
+      </section>
+
+      <!-- NEW CALL VIEW -->
+      <section id="view-new" class="view">
+        <div id="new-call-step-1" class="new-call-step">
+          <div class="card">
+            <h2>Score a Call</h2>
+            <div class="form-group">
+              <label for="call-title">Call Name</label>
+              <input type="text" id="call-title" placeholder="e.g., John Smith — 4BDR Haruru" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="call-transcript">Paste Transcript</label>
+              <textarea id="call-transcript" rows="10" placeholder="Paste your call transcript or detailed notes here..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="call-context">Call Context (optional)</label>
+              <textarea id="call-context" rows="3" placeholder="Any context: first call, follow-up, what you were selling, etc."></textarea>
+            </div>
+            <button id="btn-score" class="btn btn-primary btn-full">
+              <span class="btn-text">Analyze Call</span>
+              <span class="btn-loading" style="display:none">
+                <span class="spinner"></span> Analyzing...
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scorecard Results -->
+        <div id="new-call-step-2" class="new-call-step" style="display:none">
+          <div id="scorecard-results"></div>
+
+          <!-- Metrics -->
+          <div id="metrics-card" class="card">
+            <h3>Call Metrics</h3>
+            <div id="metrics-content"></div>
+          </div>
+
+          <!-- AAR Section -->
+          <div class="card aar-card">
+            <h3>After-Action Review</h3>
+            <p class="aar-intro">Research shows reflecting on these 4 questions after every call drives the biggest improvement.</p>
+            <div class="form-group">
+              <label for="aar-1">1. What was supposed to happen on this call?</label>
+              <textarea id="aar-1" rows="2" placeholder="Your goal / plan for the call..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="aar-2">2. What actually happened?</label>
+              <textarea id="aar-2" rows="2" placeholder="What played out..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="aar-3">3. Why was there a difference?</label>
+              <textarea id="aar-3" rows="2" placeholder="Root causes..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="aar-4">4. What will I do differently next time?</label>
+              <textarea id="aar-4" rows="2" placeholder="Specific actions..."></textarea>
+            </div>
+          </div>
+
+          <button id="btn-save-call" class="btn btn-primary btn-full">Save Call</button>
+        </div>
+      </section>
+
+      <!-- HISTORY VIEW -->
+      <section id="view-history" class="view">
+        <h2 class="view-title">Call History</h2>
+        <div id="history-list" class="call-list">
+          <div class="empty-state">No calls scored yet.</div>
+        </div>
+      </section>
+
+      <!-- CALL DETAIL VIEW -->
+      <section id="view-detail" class="view">
+        <div id="detail-content"></div>
+      </section>
+
+      <!-- SETTINGS VIEW -->
+      <section id="view-settings" class="view">
+        <h2 class="view-title">Settings</h2>
+        <div class="card">
+          <div class="form-group">
+            <label for="api-key">Claude API Key</label>
+            <input type="password" id="api-key" placeholder="sk-ant-...">
+            <p class="form-help">Your key is stored locally on this device only. Never sent anywhere except the Anthropic API.</p>
+          </div>
+          <div class="form-group">
+            <label for="model-select">Model</label>
+            <select id="model-select">
+              <option value="claude-sonnet-4-20250514">Claude Sonnet 4 (fast, recommended)</option>
+              <option value="claude-opus-4-20250514">Claude Opus 4 (thorough)</option>
+              <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (fastest, cheapest)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="product-context">Your Product/Service Context</label>
+            <textarea id="product-context" rows="4" placeholder="Describe what you sell, to whom, and any specific sales methodology you follow...">I sell SIP (Structural Insulated Panel) building systems to residential builders in New Zealand. The product is a prefabricated wall, floor, and roof panel system that offers superior thermal performance, faster build times, and reduced waste compared to traditional timber framing.</textarea>
+          </div>
+          <button id="btn-save-settings" class="btn btn-primary btn-full">Save Settings</button>
+        </div>
+
+        <div class="card">
+          <h3>Data</h3>
+          <button id="btn-export" class="btn btn-secondary btn-full">Export All Data (JSON)</button>
+          <button id="btn-clear-data" class="btn btn-danger btn-full" style="margin-top: 8px">Clear All Data</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav id="bottom-nav">
+      <button class="nav-btn active" data-view="home">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" data-view="new">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+        <span>New Call</span>
+      </button>
+      <button class="nav-btn" data-view="history">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>History</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
