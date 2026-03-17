@@ -496,6 +496,102 @@ textarea {
   line-height: 1.4;
 }
 
+/* Rich Stage Feedback */
+.stage-feedback-rich {
+  margin-top: 8px;
+}
+
+.stage-feedback-section {
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.stage-feedback-section:last-child {
+  margin-bottom: 0;
+}
+
+.stage-feedback-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+
+.stage-section-positive .stage-feedback-label {
+  color: var(--success);
+}
+
+.stage-section-improve .stage-feedback-label {
+  color: var(--warning);
+}
+
+.stage-feedback-body {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.stage-feedback-body strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.quote-highlight {
+  background: var(--primary-light);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-style: italic;
+  color: var(--text);
+}
+
+/* Score rows with rich content get more spacing */
+.score-row-rich {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.score-row-rich:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Coaching list (nextCallPrep, etc.) */
+.coaching-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.coaching-list li {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+  padding: 6px 0 6px 18px;
+  position: relative;
+}
+
+.coaching-list li::before {
+  content: "\2022";
+  color: var(--primary);
+  font-weight: 700;
+  position: absolute;
+  left: 0;
+}
+
+/* Progress note card */
+.progress-card {
+  background: linear-gradient(135deg, var(--primary-light) 0%, #f0eaff 100%);
+  border-left: 3px solid var(--primary);
+}
+
+.progress-card .insight-label {
+  color: var(--primary);
+}
+
 /* Metrics */
 .metric-row {
   display: flex;

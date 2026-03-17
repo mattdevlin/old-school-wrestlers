@@ -140,7 +140,9 @@ const App = {
     if (existingError) existingError.remove();
 
     try {
-      const result = await API.scoreTranscript(transcript, context);
+      const recentCalls = Storage.getCalls().slice(0, 5);
+      const focusSkill = Storage.getFocusSkill();
+      const result = await API.scoreTranscript(transcript, context, recentCalls, focusSkill);
       this.currentResult = result;
 
       // Render scorecard
@@ -203,6 +205,8 @@ const App = {
       topStrength: this.currentResult.topStrength,
       topImprovement: this.currentResult.topImprovement,
       keyMoment: this.currentResult.keyMoment,
+      progressNote: this.currentResult.progressNote || null,
+      nextCallPrep: this.currentResult.nextCallPrep || null,
       aar,
       focusSkill: focus ? focus.key : null,
     };

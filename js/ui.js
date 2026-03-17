@@ -35,6 +35,91 @@ const UI = {
     return d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'short' });
   },
 
+  // --- Rich Text Rendering ---
+  renderRichText(text) {
+    if (!text) return '';
+    // Escape HTML first
+    let html = this.escapeHtml(text);
+    // Convert **bold** to <strong>
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    // Convert long quoted phrases "..." to highlighted spans (10+ chars to avoid false positives)
+    html = html.replace(/&quot;([^&]{10,}?)&quot;/g, '<span class="quote-highlight">&ldquo;$1&rdquo;</span>');
+    // Also handle straight quotes that weren't escaped as &quot;
+    html = html.replace(/"([^"]{10,}?)"/g, '<span class="quote-highlight">&ldquo;$1&rdquo;</span>');
+    // Convert newlines to <br>
+    html = html.replace(/\n/g, '<br>');
+    return html;
+  },
+
+  // --- Shared Helpers ---
+  renderStageRows(scores) {
+    const stages = ['opening', 'qualifying', 'discovery', 'presentation', 'closing'];
+    let html = '';
+
+    for (const stage of stages) {
+      const s = scores[stage];
+      if (!s) continue;
+      const cls = this.scoreClass(s.score);
+      const isRich = s.whatWorked || s.couldImprove;
+
+      html += `
+        <div class="score-row ${isRich ? 'score-row-rich' : ''}">
+          <div class="score-row-header">
+            <span class="score-row-name">${this.stageNames[stage]}</span>
+            <span class="score-row-value" style="color: var(--${cls === 'high' ? 'success' : cls === 'mid' ? 'warning' : 'danger'})">${s.score}/10</span>
+          </div>
+          <div class="score-bar">
+            <div class="score-bar-fill ${cls}" style="width: ${s.score * 10}%"></div>
+          </div>`;
+
+      if (isRich) {
+        html += '<div class="stage-feedback-rich">';
+        if (s.feedback) {
+          html += `<div class="stage-feedback-section"><div class="stage-feedback-body">${this.renderRichText(s.feedback)}</div></div>`;
+        }
+        if (s.whatWorked) {
+          html += `<div class="stage-feedback-section stage-section-positive"><div class="stage-feedback-label">What Worked</div><div class="stage-feedback-body">${this.renderRichText(s.whatWorked)}</div></div>`;
+        }
+        if (s.couldImprove) {
+          html += `<div class="stage-feedback-section stage-section-improve"><div class="stage-feedback-label">Could Improve</div><div class="stage-feedback-body">${this.renderRichText(s.couldImprove)}</div></div>`;
+        }
+        html += '</div>';
+      } else {
+        html += `<div class="score-feedback">${this.escapeHtml(s.feedback)}</div>`;
+      }
+
+      html += '</div>';
+    }
+
+    return html;
+  },
+
+  renderInsightCards(result) {
+    let html = '';
+
+    if (result.topStrength) {
+      html += `<div class="insight-card"><div class="insight-label">Top Strength</div><div class="insight-text">${this.renderRichText(result.topStrength)}</div></div>`;
+    }
+    if (result.topImprovement) {
+      html += `<div class="insight-card" style="background: var(--warning-light)"><div class="insight-label" style="color: var(--warning)">Top Improvement</div><div class="insight-text">${this.renderRichText(result.topImprovement)}</div></div>`;
+    }
+    if (result.keyMoment) {
+      html += `<div class="insight-card" style="background: var(--bg)"><div class="insight-label" style="color: var(--text-secondary)">Key Moment</div><div class="insight-text">${this.renderRichText(result.keyMoment)}</div></div>`;
+    }
+    if (result.progressNote) {
+      html += `<div class="insight-card progress-card"><div class="insight-label">Progress vs Recent Calls</div><div class="insight-text">${this.renderRichText(result.progressNote)}</div></div>`;
+    }
+    if (result.nextCallPrep && Array.isArray(result.nextCallPrep) && result.nextCallPrep.length > 0) {
+      html += `<div class="insight-card" style="background: var(--primary-light)"><div class="insight-label">Next Call Prep</div><ul class="coaching-list">`;
+      for (const item of result.nextCallPrep) {
+        html += `<li>${this.renderRichText(item)}</li>`;
+      }
+      html += '</ul></div>';
+    }
+
+    return html;
+  },
+
   // --- Home View ---
   renderHome() {
     this.renderFocusCard();
@@ -119,8 +204,6 @@ const UI = {
 
   // --- Scorecard Rendering ---
   renderScorecard(result, container) {
-    const stages = ['opening', 'qualifying', 'discovery', 'presentation', 'closing'];
-
     let html = `
       <div class="scorecard">
         <div class="scorecard-header">
@@ -130,37 +213,14 @@ const UI = {
           </div>
         </div>`;
 
-    for (const stage of stages) {
-      const s = result.scores[stage];
-      if (!s) continue;
-      const cls = this.scoreClass(s.score);
-      html += `
-        <div class="score-row">
-          <div class="score-row-header">
-            <span class="score-row-name">${this.stageNames[stage]}</span>
-            <span class="score-row-value" style="color: var(--${cls === 'high' ? 'success' : cls === 'mid' ? 'warning' : 'danger'})">${s.score}/10</span>
-          </div>
-          <div class="score-bar">
-            <div class="score-bar-fill ${cls}" style="width: ${s.score * 10}%"></div>
-          </div>
-          <div class="score-feedback">${this.escapeHtml(s.feedback)}</div>
-        </div>`;
-    }
-
+    html += this.renderStageRows(result.scores);
     html += '</div>';
 
     // Insights
-    html += '<div class="card">';
-    if (result.topStrength) {
-      html += `<div class="insight-card"><div class="insight-label">Top Strength</div><div class="insight-text">${this.escapeHtml(result.topStrength)}</div></div>`;
+    const insightHtml = this.renderInsightCards(result);
+    if (insightHtml) {
+      html += `<div class="card">${insightHtml}</div>`;
     }
-    if (result.topImprovement) {
-      html += `<div class="insight-card" style="background: var(--warning-light)"><div class="insight-label" style="color: var(--warning)">Top Improvement</div><div class="insight-text">${this.escapeHtml(result.topImprovement)}</div></div>`;
-    }
-    if (result.keyMoment) {
-      html += `<div class="insight-card" style="background: var(--bg)"><div class="insight-label" style="color: var(--text-secondary)">Key Moment</div><div class="insight-text">${this.escapeHtml(result.keyMoment)}</div></div>`;
-    }
-    html += '</div>';
 
     container.innerHTML = html;
   },
@@ -201,7 +261,6 @@ const UI = {
   // --- Detail View ---
   renderDetail(call) {
     const container = document.getElementById('detail-content');
-    const stages = ['opening', 'qualifying', 'discovery', 'presentation', 'closing'];
 
     let html = `
       <button class="detail-back" id="detail-back-btn">&lsaquo; Back</button>
@@ -211,30 +270,13 @@ const UI = {
     // Scorecard
     html += '<div class="scorecard">';
     html += `<div class="scorecard-header"><div class="scorecard-title">Scorecard</div><div class="overall-score ${this.scoreBadgeClass(call.overallScore)}" style="background: var(--${this.scoreClass(call.overallScore) === 'high' ? 'success' : this.scoreClass(call.overallScore) === 'mid' ? 'warning' : 'danger'}-light); color: var(--${this.scoreClass(call.overallScore) === 'high' ? 'success' : this.scoreClass(call.overallScore) === 'mid' ? 'warning' : 'danger'});">${call.overallScore}</div></div>`;
-
-    for (const stage of stages) {
-      const s = call.scores?.[stage];
-      if (!s) continue;
-      const cls = this.scoreClass(s.score);
-      html += `
-        <div class="score-row">
-          <div class="score-row-header">
-            <span class="score-row-name">${this.stageNames[stage]}</span>
-            <span class="score-row-value" style="color: var(--${cls === 'high' ? 'success' : cls === 'mid' ? 'warning' : 'danger'})">${s.score}/10</span>
-          </div>
-          <div class="score-bar"><div class="score-bar-fill ${cls}" style="width: ${s.score * 10}%"></div></div>
-          <div class="score-feedback">${this.escapeHtml(s.feedback)}</div>
-        </div>`;
-    }
+    html += this.renderStageRows(call.scores || {});
     html += '</div>';
 
     // Insights
-    if (call.topStrength || call.topImprovement || call.keyMoment) {
-      html += '<div class="card">';
-      if (call.topStrength) html += `<div class="insight-card"><div class="insight-label">Top Strength</div><div class="insight-text">${this.escapeHtml(call.topStrength)}</div></div>`;
-      if (call.topImprovement) html += `<div class="insight-card" style="background: var(--warning-light)"><div class="insight-label" style="color: var(--warning)">Top Improvement</div><div class="insight-text">${this.escapeHtml(call.topImprovement)}</div></div>`;
-      if (call.keyMoment) html += `<div class="insight-card" style="background: var(--bg)"><div class="insight-label" style="color: var(--text-secondary)">Key Moment</div><div class="insight-text">${this.escapeHtml(call.keyMoment)}</div></div>`;
-      html += '</div>';
+    const insightHtml = this.renderInsightCards(call);
+    if (insightHtml) {
+      html += `<div class="card">${insightHtml}</div>`;
     }
 
     // Metrics
